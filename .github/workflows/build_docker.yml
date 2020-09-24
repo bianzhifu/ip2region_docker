@@ -18,7 +18,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@master
       - name: Build Golang Application
-        run: GOOS=linux GOARCH=amd64 go build -ldflags "-s -w" -v -o ip2region
+        run: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags "-s -w" -v -o ip2region
       - name: Customizable Docker Buildx
         uses: ilteoood/docker_buildx@1.0.4
         with:
