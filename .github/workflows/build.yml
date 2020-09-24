@@ -1,0 +1,31 @@
+name: build ip2region http api on docker
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Go
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.15
+      - name: Checkout code
+        uses: actions/checkout@master
+      - name: Build Golang Application
+        run: GOOS=linux GOARCH=amd64 go build -ldflags "-s -w" -v -o ip2region
+      - name: Customizable Docker Buildx
+        uses: ilteoood/docker_buildx@1.0.4
+        with:
+          tag: 2.2.0
+          imageName: bianzhifu/ip2region
+          dockerFile: Dockerfile
+          publish: true
+          platform: linux/amd64
+          dockerHubUser: ${{ secrets.DOCKER_USERNAME }}
+          dockerHubPassword: ${{ secrets.DOCKER_PASSWORD }}
