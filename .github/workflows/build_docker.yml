@@ -22,7 +22,7 @@ jobs:
       - name: Customizable Docker Buildx
         uses: ilteoood/docker_buildx@1.0.4
         with:
-          tag: latest,2.2.0
+          tag: latest
           imageName: bianzhifu/ip2region
           dockerFile: Dockerfile
           publish: true
